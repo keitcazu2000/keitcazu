@@ -1,0 +1,588 @@
+<style>
+    .clear-btn,
+    p em {
+        font-size: 16px
+    }
+
+    #weekNav table,
+    table {
+        width: 100%;
+        table-layout: fixed
+    }
+
+    .day-btn,
+    td,
+    th {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden
+    }
+
+    #keyboardContainer,
+    body {
+        padding: 10px;
+        max-width: 100%;
+        color: #fff
+    }
+
+    #keyboardContainer,
+    .day-btn,
+    .k-btn {
+        box-sizing: border-box
+    }
+
+    #cameraView,
+    .day-btn,
+    td,
+    th {
+        overflow: hidden
+    }
+
+    #weekNav td,
+    .k-btn,
+    .simple-msg,
+    .sin-foto,
+    h1,
+    h2,
+    td,
+    th {
+        text-align: center
+    }
+
+    #nuevoProductoBtn,
+    .clear-btn {
+        transform: translateY(-50%);
+        cursor: pointer
+    }
+
+    #nuevoProductoBtn,
+    #photoList img,
+    .clear-btn,
+    .day-btn,
+    .k-btn,
+    .miniatura-foto,
+    .preview-photo,
+    button,
+    ul.suggestions li {
+        cursor: pointer
+    }
+
+    body {
+        margin: 10px;
+        background: #000;
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.4
+    }
+
+    #tablaHistorial {
+        width: 100%;
+        max-width: none;
+        margin: 10px 0;
+        table-layout: auto
+    }
+
+    .campo {
+        margin-bottom: 20px;
+        position: relative
+    }
+
+    label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 700
+    }
+
+    input[readonly] {
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background: #111;
+        color: #fff
+    }
+
+    .clear-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        background: #d32f2f;
+        border: none;
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 4px
+    }
+
+    button {
+        padding: 1px;
+        font-size: 10px;
+        margin-top: 2.5px;
+        border: none;
+        border-radius: 3px;
+        background: #1976d2;
+        color: #fff
+    }
+
+    button:hover {
+        background: #1565c0
+    }
+
+    #weekNav {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+        width: 100%
+    }
+
+    #weekNav table {
+        max-width: 800px;
+        border-collapse: separate;
+        border-spacing: 4px
+    }
+
+    #weekNav td {
+        width: 14.28%;
+        padding: 0
+    }
+    
+    .day-btn {
+        background: #444;
+        border-radius: 4px;
+        padding: 6px 2px;
+        font-size: 13px;
+        width: 100%;
+        display: block;
+        /*NOTE - D4*/
+        transition: background-color 0.3s;
+    }
+
+    #keyboardContainer,
+    .modal-overlay {
+        position: fixed;
+        display: none;
+        left: 0;
+        right: 0;
+        bottom: 0
+    }
+
+    .day-btn:hover {
+        background: #666
+    }
+
+    .day-btn.active {
+        background: #1976d2
+    }
+
+    #exportMode {
+        margin: 10px auto;
+        display: block;
+        font-size: 14px;
+        padding: 4px 8px
+    }
+
+    table {
+        margin-top: 20px;
+        border-collapse: collapse;
+        font-size: 14px
+    }
+
+    td,
+    th {
+        border: 1px solid #888;
+        padding: 6px
+    }
+
+    .modal-overlay {
+        top: 0;
+        background: rgba(0, 0, 0, .85);
+        z-index: 1000;
+        overflow-y: auto;
+        padding: 20px
+    }
+
+    .modal-content {
+        background: rgba(60, 60, 60, .95);
+        overflow-y: auto;
+        margin: auto;
+        width: 95%
+    }
+
+    ul.suggestions {
+        list-style: none;
+        margin: 0;
+        padding: 0
+    }
+
+    ul.suggestions li {
+        padding: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, .1);
+        color: #fff;
+        font-size: 18px
+    }
+
+    ul.suggestions li:hover {
+        background: #555
+    }
+
+    #keyboardContainer {
+        flex-direction: column;
+        background: #222;
+        z-index: 1200;
+        border-radius: 5px 5px 0 0;
+        box-shadow: 0 -4px 10px rgba(0, 0, 0, .8);
+        width: 100%
+    }
+
+    .k-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        width: 100%
+    }
+
+    .k-btn {
+        min-width: 30px;
+        height: 45px;
+        margin: 0 2px;
+        padding: 0 5px;
+        background: #333;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 1.1rem;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center
+    }
+
+    .k-btn:active {
+        background: #444
+    }
+
+    @media (max-width:600px) {
+        .k-btn {
+            font-size: 1rem;
+            padding: 10px
+        }
+
+        table {
+            font-size: 12px
+        }
+
+        td,
+        th {
+            padding: 4px
+        }
+
+        .day-btn {
+            font-size: 11px;
+            padding: 4px 1px
+        }
+    }
+
+    .k-row:nth-child(2) .k-btn {
+        flex: 1.1
+    }
+
+    .k-row:nth-child(3) .k-btn {
+        flex: 1.2
+    }
+
+    .k-row:last-child .k-btn {
+        flex: 2
+    }
+
+    .categoria {
+        opacity: .8;
+        font-size: .85em;
+        transition: opacity .2s
+    }
+
+    li:hover .categoria {
+        opacity: 1
+    }
+
+    td .categoria {
+        display: block;
+        margin-top: 3px;
+        color: #666
+    }
+
+    .categoria[data-cat*="Tubérculos"],
+    .categoria[data-cat*=Verduras] {
+        color: #81c784
+    }
+
+    .categoria[data-cat*=Frutas] {
+        color: #ffb74d
+    }
+
+    .categoria[data-cat*=Carnes],
+    .categoria[data-cat*=Pescados] {
+        color: #e57373
+    }
+
+    .categoria[data-cat*="Lácteos"],
+    .categoria[data-cat*=Huevos] {
+        color: #64b5f6
+    }
+
+    .categoria[data-cat*=Cereales],
+    .categoria[data-cat*=Granos],
+    .categoria[data-cat*=Harinas] {
+        color: #dce775
+    }
+
+    .categoria[data-cat*=Condimentos],
+    .categoria[data-cat*=Salsas] {
+        color: #ba68c8
+    }
+
+    .categoria:not([data-cat]) {
+        color: #9e9e9e
+    }
+
+    #descripcionInput {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #555;
+        border-radius: 4px;
+        background: #222;
+        color: #fff;
+        resize: vertical
+    }
+
+    #descripcionModal .modal-content {
+        background: #333;
+        border-radius: 8px;
+        max-width: 500px;
+        margin: 20px auto;
+        padding: 20px
+    }
+
+    .ingrediente-editable {
+        cursor: pointer;
+        transition: background-color .3s
+    }
+
+    .ingrediente-editable:hover {
+        background-color: rgba(255, 255, 255, .1)
+    }
+
+    .camera-controls {
+        display: flex;
+        gap: 10px;
+        margin: 10px 0
+    }
+
+    #cameraView {
+        width: 100%;
+        max-width: 300px;
+        margin: 10px 0;
+        border: 2px solid #444;
+        border-radius: 4px
+    }
+
+    .preview-photo {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        object-fit: contain;
+        background: #000;
+        border: 2px solid #fff;
+        border-radius: 4px;
+        z-index: 2000
+    }
+
+    #nuevoProductoBtn,
+    .simple-msg {
+        position: fixed;
+        top: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, .3)
+    }
+
+    #photoList img {
+        max-width: 100px;
+        border: 1px solid #444;
+        border-radius: 4px
+    }
+
+    .miniatura-foto {
+        max-width: 80px;
+        max-height: 80px;
+        border-radius: 4px;
+        border: 1px solid #444;
+        display: block;
+        margin: 0 auto
+    }
+
+    .sin-foto {
+        color: #666;
+        font-style: italic;
+        font-size: .9em
+    }
+
+    @media (max-width:768px) {
+
+        td:first-child,
+        td:nth-child(2),
+        td:nth-child(4),
+        td:nth-child(5),
+        th:first-child,
+        th:nth-child(2),
+        th:nth-child(4),
+        th:nth-child(5) {
+            white-space: nowrap;
+            padding: 0 2px !important;
+            width: 1%;
+            box-sizing: border-box
+        }
+
+        .k-btn {
+            font-size: 1rem;
+            padding: 8px
+        }
+
+        table {
+            font-size: 12px;
+            table-layout: auto
+        }
+
+        td,
+        th {
+            padding: 4px 8px;
+            white-space: nowrap;
+            overflow: visible;
+            text-overflow: clip;
+            border-left: none;
+            border-right: none
+        }
+
+        td:first-child,
+        th:first-child {
+            min-width: 60px
+        }
+
+        td:nth-child(2),
+        td:nth-child(5),
+        th:nth-child(2),
+        th:nth-child(5) {
+            min-width: 50px
+        }
+
+        td:nth-child(3),
+        th:nth-child(3) {
+            width: auto;
+            min-width: 70px;
+            padding: 8px 2px !important;
+            box-sizing: border-box;
+            white-space: normal;
+            line-height: 1.5;
+            height: auto !important;
+            min-height: 40px !important
+        }
+
+        td:nth-child(4),
+        th:nth-child(4) {
+            min-width: 60px;
+            font-family: Arial, sans-serif
+        }
+
+        td:nth-child(6),
+        th:nth-child(6) {
+            width: 1%;
+            min-width: 40px;
+            padding: 0 !important;
+            text-align: center;
+            box-sizing: border-box
+        }
+
+        .miniatura-foto {
+            max-width: 30px;
+            max-height: 30px;
+            display: block;
+            margin: 0 auto
+        }
+
+        .sin-foto {
+            font-size: .8em;
+            text-align: center;
+            color: #999
+        }
+    }
+
+    #cameraView video {
+        width: 100% !important;
+        height: 240px !important;
+        object-fit: cover
+    }
+
+    .simple-msg {
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, .85);
+        color: #fff;
+        padding: 15px 25px;
+        border-radius: 8px;
+        font-size: 16px;
+        z-index: 10000;
+        max-width: 80%
+    }
+
+    #capturePhoto {
+        padding: 18px 30px;
+        font-size: 1.4em;
+        background: #2196f3;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        margin: 0 5px
+    }
+
+    #startCamera,
+    #stopCamera {
+        padding: 8px 12px;
+        background: #607d8b;
+        color: #fff;
+        border: none;
+        border-radius: 4px
+    }
+
+    button:disabled {
+        opacity: .6
+    }
+
+    #nuevoProductoBtn {
+        left: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #2196f3;
+        color: #fff;
+        border: none;
+        font-size: 24px;
+        z-index: 1000;
+        transition: .3s
+    }
+
+    #nuevoProductoBtn:hover {
+        background: #1976d2;
+        transform: translateY(-50%) scale(1.1)
+    }
+
+    #nuevoProductoBtn:active {
+        transform: translateY(-50%) scale(.9)
+    }
+
+    @media (max-width:600px) {
+        #nuevoProductoBtn {
+            left: 10px;
+            width: 40px;
+            height: 40px;
+            font-size: 20px
+        }
+    }
+</style>
